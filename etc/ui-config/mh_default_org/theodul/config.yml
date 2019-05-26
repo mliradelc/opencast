@@ -1,104 +1,67 @@
-## Theodul Configuration file
+################################################################################
+# Theodul Player Configuration File
+################################################################################
 
-## Path to the logo that is displayed in the Opencast player
-#
-# Value: <a complete url with scheme and port>
-#
-logo_player: '/engage/theodul/ui/img/opencast.svg'
 
-## USER TRACKING IN PLAYER
-# These settings allow a tracking of user interaction with Matomo (https://matomo.org/) in the Opencast Player
-# Only if a Matomo server is provided the Matomo plugin will be activated.
+################################################################################
+# Video Control Configuration
 #
-#
-# The Matomo server from which the Piwik JS library will be loaded and where the data will be reported
-# matomo:
-  # server: http://localhost/matomo
-#
-# The Matomo site ID has to be numeric value. If not set this will be 1.
-# prop.player.matomo.site_id=1
-#
-# The heartbeat setting to track how long a user stayed on the player page. Set to 0 or comment this line to
-# disable the heartbeat
-# matomo:
-  # heartbeat:30
-#
-# Notification that matomo is tracking the user, set to false to disable notifications (default true)
-# matomo:
-  # notification:true
-#
-# This setting lets you track several player events. Add the events that you want to track to the list. Comment this
-# line to prevent event tracking
-# Events that can be tracked:
-# - play: play has been pressed (will also be called if after seeking).
-# - pause: pause has been pressend (will also be called if before seeking).
-# - seek: user jumps to a different time. Time in seconds will be stored
-# - ended: video has reached the end
-# - playbackrate: user changes the playback speed (values 0.75 to 3.00)
-# - volume: Volume change by the user value 0.0 to 1.0
-# - quality: manual change of video quality (quality tag is stored)
-# - fullscreen: user presses fullscreen button
-# - focus: user selects one video to be enlarged (flavor of selected video is stored)
-# - layout_reset: user switches back to default layout
-# - zoom: user changes the zoom of the video
-# matomo
-    # track_events:
-    #   - 'play'
-    #   - 'pause'
-    #   - 'seek'
-    #   - 'ended'
-    #   - 'playbackrate'
-    #   - 'volume'
-    #   - 'quality'
-    #   - 'fullscreen'
-    #   - 'focus'
-    #   - 'layout_reset'
-    #   - 'zoom'
-#
+# Control which and how videos are loaded and how they are displayed
+################################################################################
+
 # The default flavor of the master video (the video on the "left side" in the video display)
-mastervideotype: 'presenter/delivery'
+mastervideotype: presenter/delivery
 
 # Play only videos that are tagged with one of these tags
 # default: don't filter for tags at all
-allowedTags: "engage-download, engage-streaming"
+allowedTags:
+  - engage-download
+  - engage-streaming
 
 # Play only videos that use these video/streaming formats.
-# The format setting in the browser will be done for what is left after these have been filtered
-# with this setting.
-# default: don't filter for video/streaming formats at all
-# allowed values: hls,dash,rtmp,mp4,webm,audio
-# allowedformats:
-#   - 'hls'
-#   - 'dash'
-#   - 'mp4'
+# The browser's format setting will be engaged only after this filter has been applied.
+# Default: don't filter video/streaming formats
+# Allowed values: hls, dash, rtmp, mp4, webm, audio
+#allowedformats:
+#  - hls
+#  - dash
+#  - mp4
+
+
+################################################################################
+# User Interface Settings
+################################################################################
+
+# Path to the logo that is displayed in the Opencast player
+# Value: <a complete url with scheme and port>
+#
+logo: /engage/theodul/ui/img/opencast.svg
 
 # Choose where the controls will be rendered
-# Options:
-#   - top
-#   - bottom
-positioncontrols: 'bottom'
+# Allowed values: top, bottom
+positioncontrols: bottom
 
-# Choose which layout should be applied if none is stored in the local storage of the browser
-# Options:
-#   - left
-#   - right
-#   - beside
-#   - off (default)
+# Choose which layout should be applied by default if no previous selection is stored in the browsers local storage
+# Allowed values: left, right, beside, off
+# Default: off
 layout: off
 
 # Choose which flavor (without subflavor) should be focused in the layout if none is stored in the local storage.
-# The focused flavor will only be used if prop.player.layout is not "off".
-focusedflavor: 'presentation'
+# The focused flavor will only be used if `layout` is not set to "off".
+focusedflavor: presentation
 
-# Hide the browser context menu on video elements (true|false)
+# Hide the browser context menu on video elements
+# Allowed values: true, false
 # Default: false
 hide_video_context_menu: false
 
-# Link back to Media Module from Theodul player (true|false)
+# Link back to the Media Module
+# Allowed values: true, false
 # Default: false
 link_mediamodule: true
 
-# Link back to Media Module from Theodul player (true|false)
+# Link back to Media Module from the embed player
+# Allowed values: true, false
 # Default: false
 show_embed_links: true
 
@@ -134,111 +97,72 @@ show_embed_links: true
 # - any other key
 #   - should be referenceable by name like a, /, $, *, or =
 # - for more information have a look at the player docs
-
 shortcuts:
-  -
-    name: "controls.playPause"
-    key: "space"
-  -
-    name: "controls.seekRight"
-    key: "right"
-  -
-    name: "controls.seekLeft"
-    key: "left"
-  -
-    name: "controls.jumpToBegin"
-    key: "backspace"
-  -
-    name: "controls.prevChapter"
-    key: "pagedown"
-  -
-    name: "controls.nextChapter"
-    key: "pageup"
-  -
-    name: "playbackrate.increase"
-    key: "t"
-  -
-    name: "playbackrate.decrease"
-    key: "T"
-  -
-    name: "volume.up"
-    key: "9"
-  -
-    name: "volume.down"
-    key: "8"
-  -
-    name: "fullscreen.enable"
-    key: "mod+enter"
-  -
-    name: "fullscreen.cancel"
-    key: "escape"
-  -
-    name: "layout.focusNext"
-    key: ">"
-  -
-    name: "layout.focusPrev"
-    key: "<"
-  -
-    name: "layout.movePiP"
-    key: "p"
-  -
-    name: "layout.togglePi"
-    key: "o"
-  -
-    name: "zoom.moveLeft"
-    key: "a"
-  -
-    name: "zoom.moveRight"
-    key: "d"
-  -
-    name: "zoom.moveUp"
-    key: "w"
-  -
-    name: "zoom.moveDown"
-    key: "s"
-  -
-    name: "zoom.in"
-    key: "plus"
-  -
-    name: "zoom.out"
-    key: "-"
+  controls:
+    playPause: space
+    seekRight: right
+    seekLeft: left
+    jumpToBegin: backspace
+    prevChapter: pagedown
+    nextChapter: pageup
+  playbackrate:
+    increase: t
+    decrease: T
+  volume:
+    up: 9
+    down: 8
+  fullscreen:
+    enable: mod+enter
+    cancel: escape
+  layout:
+    focusNext: '>'
+    focusPrev: '<'
+    movePip: p
+    togglePiP: o
+  zoom:
+    moveLeft: a
+    moveRight: d
+    moveUp: w
+    moveDown: s
+    in: plus
+    out: '-'
 
 
-# shortcuts:
-#   controls:
-#     playPause: 'space'
-#     seekRight: 'right'
-#     seekLeft: 'left'
-#     jumpToBegin: 'backspace'
-#     prevChapter: 'pagedown'
-#     nextChapter: 'pageup'
-#   playbackrate:
-#     increase: 't'
-#     decrease: 'T'
-#   volume:
-#     up: 9
-#     down: 8
-#   fullscreen:
-#     enable: 'mod+enter'
-#     cancel: 'escape'
-#   layout:
-#     focusNext: '>'
-#     focusPrev: '<'
-#     movePip: 'p'
-#     togglePiP: 'o'
-#   zoom:
-#     moveLeft: 'a'
-#     moveRight: 'd'
-#     moveUp: 'w'
-#     moveDown: 's'
-#     in: 'plus'
-#     out: '-'
+################################################################################
+# Matomo (User Tracking) Configuration
+#
+# These settings allow a tracking of user interaction with Matomo (https://matomo.org/) in the Opencast Player
+# The plugin will be activated only if a Matomo server.
+################################################################################
+matomo:
 
-shorcut_secuence:
-  - 'controls'
-  - 'volume'
-  - 'playbackrate'
-  - 'layout'
-  - 'zoom'
-  - 'fullscreen'
-  
+  # The Matomo server from which the Piwik JS library will be loaded and to which the data will be reported
+  #server: http://localhost/matomo
+
+  # The Matomo site ID has to be numeric value. If not set this will be 1.
+  #site_id=1
+
+  # The heartbeat setting to track how long a user stayed on the player page. Set to 0 or comment this line to
+  # disable the heartbeat
+  #heartbeat:30
+
+  # Notification that matomo is tracking the user, set to false to disable notifications
+  # Default: true
+  #notification:true
+
+  # These settings let you track several player events. Add the events that you want to track to the list.
+  # Events that can be tracked:
+  # - play: play has been pressed (will also be called if after seeking).
+  # - pause: pause has been pressend (will also be called if before seeking).
+  # - seek: user jumps to a different time. Time in seconds will be stored
+  # - ended: video has reached the end
+  # - playbackrate: user changes the playback speed (values 0.75 to 3.00)
+  # - volume: Volume change by the user value 0.0 to 1.0
+  # - quality: manual change of video quality (quality tag is stored)
+  # - fullscreen: user presses fullscreen button
+  # - focus: user selects one video to be enlarged (flavor of selected video is stored)
+  # - layout_reset: user switches back to default layout
+  # - zoom: user changes the zoom of the video
+  #track_events:
+  #  - play
+  #  - ended

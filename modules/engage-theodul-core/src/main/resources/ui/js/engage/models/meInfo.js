@@ -34,7 +34,6 @@ define(['jquery', 'backbone', 'js-yaml.min'], function($, Backbone, jsyaml) {
         prop_focusedflavor = "player.focusedflavor",
         prop_logo_player = "logo_player",
         prop_logo_mediamodule = "logo_mediamodule",
-        prop_link_mediamodule = "link_mediamodule",
         prop_show_embed_link = "show_embed_links",
         prop_matomo_server = "player.matomo.server",
         prop_matomo_site_id = "player.matomo.site_id",
@@ -44,7 +43,7 @@ define(['jquery', 'backbone', 'js-yaml.min'], function($, Backbone, jsyaml) {
         prop_hide_video_context_menu = "player.hide_video_context_menu",
         ready = false,
         positioncontrols = "",
-        config = "";
+        config;
     /*
      * Model with information about the current user and the current MH configuration
      */
@@ -60,7 +59,6 @@ define(['jquery', 'backbone', 'js-yaml.min'], function($, Backbone, jsyaml) {
                         mastervideotype = "",
                         logo_mediamodule = "",
                         logo_player = "",
-                        link_mediamodule = false,
                         show_embed_link = false,
                         hide_video_context_menu = false,
                         layout = "off",
@@ -71,24 +69,23 @@ define(['jquery', 'backbone', 'js-yaml.min'], function($, Backbone, jsyaml) {
                         matomo_notification,
                         matomo_track_events;
 
-                      $.ajax({
-                        url: configURL,
-                        dataType: "text",
-                        success: function(data) {
-                          var rawfile = data;
-                          }
-                        }).then(function(rawfile){
+                    $.ajax({
+                      url: configURL,
+                      dataType: "text",
+                      success: function(data) {
+                        var rawfile = data;
+                      }
+                    }).then(function(rawfile){
                       config = jsyaml.load(rawfile);
+                      me.set("config", config);
                       me.set("allowedtags", config.allowedTags);
                       me.set("allowedformats", config.allowedFormats);
                       me.set("shortcuts", config.shortcuts);
                       me.set("mastervideotype", config.mastervideotype);
                       me.set("logo_mediamodule", config.logo_mediamodule);
-                      me.set("logo_player", config.logo_player);
-                      me.set("link_mediamodule", config.link_mediamodule);
+                      me.set("logo_player", config.logo);
                       me.set("show_embed_links", config.show_embed_link);
                       me.set("hide_video_context_menu", config.hide_video_context_menu);
-                      me.set("shortcut-sequence", config.shortcut_sequence);
                       me.set("layout", config.layout);
                       me.set("focusedflavor", config.focusedflavor);
                       me.set("matomo.server", config.matomo_server);
@@ -97,7 +94,7 @@ define(['jquery', 'backbone', 'js-yaml.min'], function($, Backbone, jsyaml) {
                       me.set("matomo.notification", config.matomo_notification);
                       me.set("matomo.track_events", config.matomo_track_events);
                       ready = true;
-                      })
+                    })
 
                   }
               });
@@ -110,7 +107,6 @@ define(['jquery', 'backbone', 'js-yaml.min'], function($, Backbone, jsyaml) {
         return positioncontrols;
         }
       });
-      
 
   return MeInfoModel;
 });
