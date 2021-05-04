@@ -63,6 +63,7 @@ module.exports = function (config) {
             // here you can edit the list of browsers used by karma
             postDetection: function(availableBrowsers) {
                 var result = availableBrowsers;
+                result = ['Safari'];
                 /* Leaving this commented out as an example.
                    If we ever want to disable an installed browser (c.f: IE) we can exclude it like this
                 //Remove PhantomJS if another browser has been detected
@@ -78,9 +79,9 @@ module.exports = function (config) {
                     console.error("Suggest installing Firefox or other FOSS browser");
                     throw "No browsers detected";
 	        }
-        if (availableBrowsers.includes('Safari')){
-                result = availableBrowsers.filter(item => item !== 'Safari')
-        }
+        // if (availableBrowsers.includes('Safari')){
+        //         result = availableBrowsers.filter(item => item !== 'Safari')
+        // }
                 return result;
             }
         },
